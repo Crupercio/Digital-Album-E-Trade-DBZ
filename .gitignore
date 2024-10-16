@@ -1,0 +1,37 @@
+# Python-related files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Virtual environment folder
+v-env/
+env/
+venv/
+
+# Django files
+
+*.log
+local_settings.py
+
+
+
+# Django static files
+
+
+# IDEs and text editors
+.vscode/
+.idea/
+*.swp
+
+# Node modules (if using npm)
+node_modules/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Environment variables
+.env
