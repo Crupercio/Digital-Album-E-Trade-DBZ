@@ -15,44 +15,98 @@
 </div>
 
 <!-- Display the items for the current page in rows -->
-<div class="album-page">
+<div class="album-page" style="background-size: cover; background-position: center; background-repeat: no-repeat; background-image: url('{% static 'album_backgrounds/' %}album_{{ album.id }}_page_{{ current_page }}.png');">
+
     <h2 class="text-center">Page {{ current_page }}</h2><br><br>
-    
     <div class="sticker-grid">
         <!-- Loop through items for the current page -->
         {% for item in all_items %}
-            <div class="sticker-slot {% if item.id in collected_ids %}collected{% endif %}">
-                <!-- Sticker image -->
+        
+        <div class="sticker-slot {% if item.id in collected_ids %}collected transparent-background{% endif %}">
+            <!-- Sticker image container -->
+            <div class="sticker-image-container">
+                <!-- Sticker image that triggers the modal -->
+               
                 <img 
                     src="{{ item.image.url }}" 
                     alt="{{ item.name }}"
                     class="{% if item.id not in collected_ids %} missing-sticker {% endif %}"
+                    onclick="openModal('{{ item.image.url }}', '{{ item.name }}', '{{ item.description }}')"
                 >
-
-                <!-- Collect button and badge -->
-                <div class="button-badge-container">
-                    <!-- Show 'Collect' button if the item is owned but not collected -->
-                    {% if item.id in owned_ids and item.id not in collected_ids %}
-                        <a href="{% url 'collect_item' item.id %}" class="collect-button">
-                            Collect
-                        </a>
-                    {% endif %}
-
-                    <!-- Show 'Collected' badge if the item is collected -->
-                    {% if item.id in collected_ids %}
-                        <div class="badge bg-success">Collected</div>
-                    {% elif item.id in owned_ids %}
-                        <!-- Show 'Owned' badge if the item is owned but not collected -->
-                        <div class="badge bg-warning">Owned</div>
-                    {% endif %}
-                </div>
+        
+                <!-- Sticker name positioned in the top-right corner -->
+                
             </div>
-        {% endfor %}
+        
+            <!-- Collect button and badge -->
+            <div class="button-badge-container">
+                {% if item.id in owned_ids and item.id not in collected_ids %}
+                    <a href="{% url 'collect_item' item.id %}" class="collect-button">
+                        Collect
+                    </a>
+                {% endif %}
+        
+                {% if item.id in collected_ids %}
+                    <div class="badge bg-success">Collected</div>
+                {% elif item.id in owned_ids %}
+                    <div class="badge bg-warning">Owned</div>
+                {% endif %}
+            </div>
+            
+        </div>
+        
+        <!-- Modal for displaying sticker details -->
+      <!-- Modal for displaying sticker details -->
+    <!-- Modal for displaying sticker details -->
+<div id="stickerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="" style="width: 100%;">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
     </div>
 </div>
 
+
+        
+        
+    
+        
+        {% endfor %}
+    </div>
+</div>
+<script>
+    // Function to open the modal and display the sticker details
+    function openModal(imageUrl, name, description) {
+        var modal = document.getElementById("stickerModal");
+        var modalImg = document.getElementById("modalImage");
+        var modalTitle = document.getElementById("modalTitle");
+        var modalDescription = document.getElementById("modalDescription");
+
+        modal.style.display = "block"; // Show the modal
+        modalImg.src = imageUrl; // Set the image
+        modalTitle.textContent = name; // Set the title (name)
+        modalDescription.textContent = description; // Set the description
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        var modal = document.getElementById("stickerModal");
+        modal.style.display = "none"; // Hide the modal
+    }
+
+    // Close the modal when clicking outside the modal content
+    window.onclick = function(event) {
+        var modal = document.getElementById("stickerModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
 {% else %}
-    <p>You must be logged in to view your album.</p>
+    <p>You gotta collet them all.</p>
 {% endif %}
 
 {% endblock %}

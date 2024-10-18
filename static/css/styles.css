@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 /*!
 * Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
@@ -86,6 +87,83 @@
 }
 /* Album styling */
 /* Album Page Styling */
+
+/* The modal background (hidden by default) */
+.modal-content {
+  
+  background-size: cover; /* Ensures the image covers the whole modal */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less depending on screen size */
+  max-width: 600px;
+  color: white; /* Set text color to white so it stands out on the image */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Adds a slight shadow for better readability */
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity for overlay effect */
+}
+
+/* Modal content */
+.modal-content {
+  background-image: url("{% static 'images/modal_background.jpg' %}");
+  background-size: cover; /* Ensures the image covers the whole modal */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less depending on screen size */
+  max-width: 600px;
+  color: white; /* Set text color to white so it stands out on the image */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Adds a slight shadow for better readability */
+}
+
+/* The close button */
+.close {
+  color: white; /* Close button color */
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #ccc;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+.sticker-slot {
+  background-color: white; /* Default white background */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.sticker-slot.transparent-background {
+  background-color: transparent; /* Fully transparent when collected */
+}
+.sticker-slot.collected {
+  background-color: rgba(178, 150, 26, 0.25); /* Slightly transparent when collected */
+}
+
+
+
 .album-page {
   background-color: #ffcc00; /* Dragon Ball-inspired orange-yellow background */
   padding: 30px;
@@ -139,8 +217,8 @@
 
 /* Sticker Slot Styling */
 .sticker-slot {
-  width: 240px;
-  height: 240px;
+  width: 220px;
+  height: 220px;
   position: relative;
   border: 2px dashed #ff9900;
   background-color: #fafafa;
@@ -164,7 +242,7 @@
 /* Overlay for the button and badge */
 .button-badge-container {
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
