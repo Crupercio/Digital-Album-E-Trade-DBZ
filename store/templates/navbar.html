@@ -12,14 +12,22 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'album_base' %}">My Albums</a></li>
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'login'%}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'register'%}">Register</a></li>
                 {% endif %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li><a class="dropdown-item" href="{% url 'home' %}">All Products</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Dragon-Balls'%}">Dragon Balls</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Daima'%}">Daima</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Locations'%}">Locations</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Artifacts'%}">Artifacts</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Fusion-Characters'%}">Fusion Characters</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Support-Characters'%}">Support Characters</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Villains'%}">Villains</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Hero-Characters'%}">Hero Characters</a></li>
+                        
                     </ul>
                 </li>
             </ul>

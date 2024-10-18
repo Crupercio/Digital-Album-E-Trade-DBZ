@@ -11,4 +11,7 @@ urlpatterns = [
     path('album/<int:album_id>/<int:page_number>/', views.album_view, name='album_page'),
     path('collect/<int:item_id>/', views.collect_item_view, name='collect_item'),  # Add this line
     path('buy/<int:item_id>/', views.buy_item, name='buy_item'), 
+    path('register/', views.register_user, name="register"),
+    path('sticker/<int:pk>', views.sticker, name="sticker"),
+    path('category/<str:foo>', views.category, name="category"),
 ]

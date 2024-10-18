@@ -1,23 +1,70 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CollectibleItem, CustomerCollection, Order, Album
+from .models import CollectibleItem, CustomerCollection, Order, Album, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from .forms import SignUpForm
+
 # Create your views here.
 def home(request):
-    products = CollectibleItem.objects.all()
+    stickers = CustomerCollection.objects.all().filter(tradeable=True)
+
     return render(request,'home.html',{
-        'products':products
+        'stickers':stickers
     })
 
 def about(request):
     return render(request,'about.html',{})
+
+def category(request, foo):
+    #Replace hyphens with spaces
+    foo = foo.replace('-', ' ')
+    try:
+        #look catefory
+        category = Category.objects.get(name=foo)
+        stickers = CustomerCollection.objects.filter(tradeable=True, item__category=category)
+        return render(request, 'category.html', {'stickers': stickers,
+            'category': category})
+    except:
+        messages.success(request, ("That category does not exist!"))
+        return redirect('home')
+
+
+def sticker(request, pk):
+
+    sticker = CollectibleItem.objects.get(id=pk)
+
+    return render(request, 'sticker.html',{'sticker': sticker})
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            #log in the user
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ("You have register successfully!"))
+            return redirect('home')   
+        else:
+            messages.success(request, ("Oh no, there was a problem registering, please try again"))
+            return redirect('register')
+    else:
+        return render(request, 'register.html',{'form': form})
 
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+           
+
         if user is not None:
             login(request, user)
             messages.success(request, ("You have been logged in!"))

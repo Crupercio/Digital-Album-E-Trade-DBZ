@@ -37,9 +37,10 @@ class Album(models.Model):
 # Combined Product and Sticker Model
 class CollectibleItem(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=250, default='', blank=True, null=True)
+    description = models.CharField(max_length=1000, default='', blank=True, null=True)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=15)
     image = models.ImageField(upload_to='uploads/collectibles/')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     
     # Sale and trade status
     is_sale = models.BooleanField(default=True)  # Can be listed for sale
