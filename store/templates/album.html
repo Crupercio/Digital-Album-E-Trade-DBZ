@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>{{ album.title }}</h1>
+
+<!-- Tab Navigation for page selection -->
+<div class="mini-navbar">
+    {% for page in total_pages %}
+        <a href="{% url 'album_page' album.id page %}" class="{% if page == current_page %}active{% endif %}">
+            Page {{ page }}
+        </a>
+    {% endfor %}
+</div>
+
+<!-- Display the items for the current page in rows -->
+<div class="album-page">
+    <h2 class="text-center">Page {{ current_page }}</h2><br><br>
+    
+    <div class="sticker-grid">
+        <!-- Loop through items for the current page -->
+        {% for item in all_items %}
+            <div class="sticker-slot {% if item.id in collected_ids %}collected{% endif %}">
+                <!-- Sticker image -->
+                <img 
+                    src="{{ item.image.url }}" 
+                    alt="{{ item.name }}"
+                    class="{% if item.id not in collected_ids %} missing-sticker {% endif %}"
+                >
+
+                <!-- Collect button and badge -->
+                <div class="button-badge-container">
+                    <!-- Show 'Collect' button if the item is owned but not collected -->
+                    {% if item.id in owned_ids and item.id not in collected_ids %}
+                        <a href="{% url 'collect_item' item.id %}" class="collect-button">
+                            Collect
+                        </a>
+                    {% endif %}
+
+                    <!-- Show 'Collected' badge if the item is collected -->
+                    {% if item.id in collected_ids %}
+                        <div class="badge bg-success">Collected</div>
+                    {% elif item.id in owned_ids %}
+                        <!-- Show 'Owned' badge if the item is owned but not collected -->
+                        <div class="badge bg-warning">Owned</div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+    <p>You must be logged in to view your album.</p>
+{% endif %}
+
+{% endblock %}

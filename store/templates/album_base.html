@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Select an Album</h1>
+
+<!-- Mini Navbar for albums -->
+<div class="mini-navbar">
+    {% for album in albums %}
+        <a href="{% url 'album_page' album.id 1 %}" class="album-link {% if forloop.first %}active{% endif %}">
+            {{ album.title }}
+        </a>
+    {% endfor %}
+</div>
+
+{% else %}
+    <p>You must be logged in to view the albums.</p>
+{% endif %}
+
+{% endblock %}
+

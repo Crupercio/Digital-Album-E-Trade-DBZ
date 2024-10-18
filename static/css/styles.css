@@ -84,7 +84,163 @@
 *::after {
   box-sizing: border-box;
 }
+/* Album styling */
+/* Album Page Styling */
+.album-page {
+  background-color: #ffcc00; /* Dragon Ball-inspired orange-yellow background */
+  padding: 30px;
+  border-radius: 10px;
+  margin: 20px auto; /* Center the content horizontally */
+  width: 100%; /* Allow it to take the full width */
+  max-width: 1800px; /* Constrain the width to prevent it from being too wide on large screens */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ff9900;
+}
 
+/* Mini Navbar for page selection */
+.mini-navbar {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Add spacing between page links */
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.mini-navbar a {
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  border: 2px solid #ff9900; /* Orange border */
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mini-navbar a:hover {
+  background-color: #ff9900;
+  color: white;
+}
+
+.mini-navbar a.active {
+  background-color: #555;
+  color: white;
+}
+
+/* Responsive Grid Layout */
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 stickers per row by default */
+  gap: 20px; /* Add space between stickers */
+  justify-items: center;
+  width: 100%; /* Make sure the grid takes full width inside the page */
+  padding: 10px;
+}
+
+/* Sticker Slot Styling */
+.sticker-slot {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  border: 2px dashed #ff9900;
+  background-color: #fafafa;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.sticker-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Grey out missing stickers */
+.missing-sticker {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+/* Overlay for the button and badge */
+.button-badge-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+}
+
+.collect-button {
+  background-color: #ff6600;
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.collect-button:hover {
+  background-color: #cc5200;
+}
+
+/* Hide the button when collected */
+.sticker-slot.collected .collect-button {
+  display: none;
+}
+
+/* Badge styles */
+.badge {
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.badge.bg-success {
+  background-color: #00cc44;
+}
+
+.badge.bg-warning {
+  background-color: #ff9900;
+  color: black;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .sticker-grid {
+    grid-template-columns: repeat(1, 1fr); /* 1 sticker per row on the smallest screens */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .sticker-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 stickers per row on small screens */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .sticker-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 stickers per row on medium screens */
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .sticker-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 stickers per row on medium-large screens */
+  }
+}
+
+@media (min-width: 1201px) {
+  .sticker-grid {
+    grid-template-columns: repeat(5, 1fr); /* 5 stickers per row on large screens */
+  }
+}
+
+
+/* ************************/
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
